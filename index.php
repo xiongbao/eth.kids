@@ -1,18 +1,39 @@
+<?php
+  require_once  './IDNA2.php';
+  $domainArr = array_reverse(explode('.', $_SERVER ['HTTP_HOST']));
+  if( count($domainArr) > 2 ) {
+    $domain = $domainArr[2].'.'.$domainArr[1];
+  } else {
+    $domain = $domainArr[1].'.'.$domainArr[0];
+  }
+  // $domain_ext = $domainArr[0];
+  $domain_len = mb_strlen($domain,'utf8');
+
+  if( startsWith($domain, 'xn--') ) {
+    static $idn;
+    $idn = new Net_IDNA2();
+
+    $domain = $idn->decode($domain);
+  }
+
+  function startsWith ($haystack, $needle)
+  {
+      return strncmp($haystack, $needle, strlen($needle)) === 0;
+  }
+?>
 <!doctype html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta content="Web 3.0 Navigation, Knowledge, Tools。" name="description">
-  <meta content="Web3, Web3.0, ETH, NFT, Wallet" name="keywords">
+  <meta content="YOU PERSONAL WEB3.0 SOCIAL MEDIA." name="description">
+  <meta content="Web3, Web3.0, ETH, NFT, Wallet, ENS" name="keywords">
   <meta name="theme-color" content="#5f18d3">
-  {{ $Domains := .Split .Host ".eth." }}
-  {{ $Domain := index $Domains 0 }}
-  {{ $DomainLen := len $Domain }}
+
   <link rel="icon" type="image/png" href="./assets/images/web3.icon.png">
   <link rel="icon" type="image/png" sizes="144x144" href="./assets/images/web3.icon.png">
   <link rel="apple-touch-icon" type="image/png" href="./assets/images/web3.icon.png">
-  <title>{{ $Domain }}.eth</title>
+  <title><?php echo $domain ?></title>
   <style>
     @font-face {
       font-family: 'MiSans';
@@ -37,7 +58,7 @@
     }
     html {
       font-size: 13.3333vw;
-      --domain-len: {{$DomainLen}};
+      --domain-len: <?php echo $domain_len ?>;
     }
     html,body {
       height: 100%;
@@ -110,10 +131,10 @@
   </style>
 </head>
 <body>
-  <h1>{{$Domain}}.eth</h1>
+  <h1><?php echo $domain ?></h1>
   <p class="slogan"><span>You Personal </span><span>WEB<sup>3.0</sup> Social Media.</span></p>
   <p class="coming">Coming soon...</p>
-  <p class="copyright"><a href="https://my3.website"><span>&copy;</span>{{.Now "2006"}} My<sup>3</sup>.social</a></p>
+  <p class="copyright"><a href="https://my3.social"><span>&copy;</span><?php echo date("Y") ?> My<sup>3</sup>.social</a></p>
   <canvas id="gradient-canvas" data-transition-in />
   <script src="./assets/scripts/gradient.js" type="text/javascript"></script>
   <style>
