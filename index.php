@@ -7,7 +7,7 @@
     $domain = $domainArr[1].'.'.$domainArr[0];
   }
   // $domain_ext = $domainArr[0];
-  $domain_len = mb_strlen($domain,'utf8');
+  $domain_len = mb_strlen($domain,'utf8') - 1;
 
   if( startsWith($domain, 'xn--') ) {
     static $idn;
