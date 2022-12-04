@@ -135,7 +135,7 @@
   <p class="slogan"><span>You Personal </span><span>WEB<sup>3.0</sup> Social Media.</span></p>
   <p class="coming">Coming soon...</p>
   <p class="copyright"><a href="https://my3.social"><span>&copy;</span><?php echo date("Y") ?> My<sup>3</sup>.social</a></p>
-  <canvas id="gradient-canvas" data-transition-in />
+  <canvas id="gradient-canvas" data-transition-in></canvas>
   <script src="./assets/scripts/gradient.js" type="text/javascript"></script>
   <style>
     #gradient-canvas {
